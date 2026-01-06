@@ -116,8 +116,11 @@ Deploy as a browser extension or API service
 
 👨‍💻 Author
 Ares Coding
+
 Software Developer & AI Engineer
+
 Focused on Machine Learning, Computer Vision, and Security Systems
 
 📄 License
+
 This project is licensed under the MIT License — free to use with attribution.
