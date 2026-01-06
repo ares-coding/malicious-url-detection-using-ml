@@ -124,3 +124,7 @@ Focused on Machine Learning, Computer Vision, and Security Systems
 📄 License
 
 This project is licensed under the MIT License — free to use with attribution.
+
+## Status
+- Feature extraction completed
+- SVM baseline model trained successfully
