@@ -13,8 +13,9 @@ def train_svm():
 
     # Split dataset
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
+    X, y, test_size=0.5, random_state=42
+)
+
 
     # Train SVM model
     model = SVC(kernel="rbf", C=1.0, gamma="scale")
