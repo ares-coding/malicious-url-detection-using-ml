@@ -2,7 +2,7 @@
 
 Below is a screenshot of the actual running system using a Streamlit-based web interface for malicious URL detection.
 
-![Streamlit Demo](assets/streamlit-demo.png)
+![Streamlit Demo](streamlit-demo.png)
 
 🔐 Malicious URL Detection Using Machine Learning
 
