@@ -113,6 +113,36 @@ Integrate blacklist-based hybrid detection
 
 Deploy as a browser extension or API service
 
+## 📊 Results & Evaluation
+
+The baseline SVM model was evaluated using standard classification metrics.
+
+- Accuracy: 100% (small sample test)
+- Precision, Recall, F1-score reported per class
+- Confusion Matrix generated for error analysis
+
+> ⚠️ Note: Current results are based on a limited dataset for pipeline validation.
+> Performance metrics are expected to stabilize and improve with larger datasets.
+
+## 🧪 Sample Output
+
+Classification Report:
+- Class 0 (Benign): Precision 1.00, Recall 1.00
+- Class 1 (Malicious): Precision 1.00, Recall 1.00
+
+Confusion Matrix:
+[[1 0]
+ [0 1]]
+
+Model saved as:
+models/svm_model.pkl
+
+## 🚧 Project Status
+- Feature extraction: ✅ Completed
+- SVM baseline model: ✅ Trained & evaluated
+- Dataset expansion: 🔄 Planned
+- Advanced models (e.g. RF, XGBoost, DL): ⏳ Future work
+
 
 👨‍💻 Author
 Ares Coding
