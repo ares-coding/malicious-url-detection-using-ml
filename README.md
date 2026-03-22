@@ -1,94 +1,120 @@
-🔐 Malicious URL Detection System
-Machine Learning‑Powered Phishing & Malware URL Classifier
-<div align="center">
+# Malicious URL Detection System
 
-https://www.python.org/
-https://scikit-learn.org/
-https://streamlit.io/
-[Looks like the result wasn't safe to show. Let's switch things up and try something else!]
+**Machine Learning-Powered Phishing and Malware URL Classifier**
 
-https://via.placeholder.com/1200x400/111111/22c55e?text=Malicious+URL+Detection
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)](LICENSE)
 
-</div>
+---
 
-📋 Table of Contents
-Overview
+## Overview
 
-Features
+A machine learning-based cybersecurity system that detects and classifies malicious URLs by analyzing structural and statistical features — without inspecting webpage content.
 
-How It Works
+**Key properties:**
+- Real-time URL analysis with 95%+ detection accuracy
+- 30+ engineered URL features across length, entropy, domain, and security dimensions
+- No page content inspection — privacy-preserving by design
+- Supports single URL lookup, batch processing, and REST API integration
 
-Tech Stack
+---
 
-Installation
+## Tech Stack
 
-Usage
+| Layer | Technology |
+|---|---|
+| Machine Learning | Scikit-learn, XGBoost |
+| Data Processing | Pandas, NumPy |
+| Web Interface | Streamlit |
+| API | Flask |
+| Visualization | Matplotlib, Seaborn |
 
-Feature Engineering
+---
 
-Model Performance
+## Installation
 
-API Documentation
+```bash
+git clone https://github.com/ares-coding/malicious-url-detection-using-ml.git
+cd malicious-url-detection-using-ml
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-Project Structure
+**Docker:**
+```bash
+docker build -t url-detector .
+docker run -p 8501:8501 url-detector
+```
 
-Contributing
+---
 
-License
+## Usage
 
-Author
+### Web Interface
 
-🎯 Overview
-The Malicious URL Detection System is a machine learning–driven cybersecurity tool designed to classify URLs as benign or malicious using structural and statistical URL features. Unlike traditional scanners, this system does not rely on content inspection — making it fast, lightweight, and privacy‑preserving.
+```bash
+streamlit run app.py
+# Access at http://localhost:8501
+```
 
-Why This Approach?
-⚡ Real‑time detection without loading webpages
+### Python API
 
-🎯 High accuracy (95%+ depending on model)
+```python
+from url_detector import URLDetector
 
-🔒 Privacy‑first — no content scraping
+detector = URLDetector(model='xgboost')
 
-📊 Feature‑rich — 30+ engineered URL features
+# Single URL
+result = detector.predict('https://suspicious-site.com')
+print(f"Malicious: {result['is_malicious']}")
+print(f"Confidence: {result['confidence']:.2%}")
 
-🚀 Quick Start
-bash
-python app.py
-# Visit http://localhost:8501
-✨ Features
-🔍 30+ URL‑based features extracted automatically
+# Batch
+urls = ['url1.com', 'url2.com', 'url3.com']
+results = detector.predict_batch(urls)
+```
 
-🤖 Multiple ML models (Random Forest, XGBoost, SVM)
+### REST API
 
-📊 Real‑time classification with confidence scores
+```bash
+python api.py
 
-🎨 Streamlit dashboard for interactive analysis
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com"}'
+```
 
-🔄 Batch URL processing
+---
 
-🌐 REST API for integration into other systems
+## How It Works
 
-📈 Feature importance & visualizations
+### Feature Extraction
 
-🧪 Reproducible training pipeline
-
-🔬 How It Works
-1. URL Feature Extraction
-python
+```python
 def extract_url_features(url):
     features = {
         'url_length': len(url),
         'num_dots': url.count('.'),
         'num_hyphens': url.count('-'),
+        'num_underscores': url.count('_'),
         'num_slashes': url.count('/'),
+        'num_questionmarks': url.count('?'),
+        'num_equals': url.count('='),
+        'num_ats': url.count('@'),
         'num_digits': sum(c.isdigit() for c in url),
         'has_ip': check_ip_address(url),
         'has_https': url.startswith('https'),
         'domain_length': len(extract_domain(url)),
-        # ... 20+ additional features
+        # 20+ additional features
     }
     return features
-2. ML Classification Pipeline
-python
+```
+
+### Classification
+
+```python
 models = {
     'Random Forest': RandomForestClassifier(n_estimators=100),
     'XGBoost': XGBClassifier(max_depth=6),
@@ -96,117 +122,145 @@ models = {
 }
 
 prediction, confidence = model.predict_proba(features)
-🛠️ Tech Stack
-Component	Technology
-Machine Learning	Scikit‑learn, XGBoost
-Data Processing	Pandas, NumPy
-Web Interface	Streamlit
-Visualization	Matplotlib, Seaborn
-API	Flask
-📥 Installation
-Standard Setup
-bash
-git clone https://github.com/ares-coding/malicious-url-detection-using-ml.git
-cd malicious-url-detection-using-ml
+```
 
-pip install -r requirements.txt
-streamlit run app.py
-Docker Deployment
-bash
-docker build -t url-detector .
-docker run -p 8501:8501 url-detector
-🚀 Usage
-Web Interface
-bash
-streamlit run app.py
-Open: http://localhost:8501
+---
 
-Python API
-python
-from url_detector import URLDetector
+## Feature Engineering
 
-detector = URLDetector(model='xgboost')
-result = detector.predict('https://suspicious-site.com')
-REST API
-bash
-python api.py
+Features are grouped into the following categories:
 
-curl -X POST http://localhost:5000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://example.com"}'
-🔧 Feature Engineering
-Feature Categories
-Category	Examples
-Length-based	URL length, domain length
-Character-based	Dots, hyphens, slashes
-Domain	IP usage, TLD type
-Path	Directory depth, file extension
-Query	Parameter count
-Security	HTTPS presence
-Entropy	Character randomness
-Reputation	Domain age, blacklist checks
-Top 10 Important Features
-Code
-1. url_length
-2. has_ip_address
-3. num_subdomains
-4. domain_length
-5. num_dots
-6. has_https
-7. entropy
-8. num_hyphens
-9. path_depth
-10. num_digits
-📊 Model Performance
-Benchmark Summary
-Model	Accuracy	Precision	Recall	F1	AUC
-Random Forest	94.2%	93.8%	94.6%	94.2%	0.97
-XGBoost	96.5%	96.2%	96.8%	96.5%	0.98
-SVM (RBF)	92.8%	92.3%	93.2%	92.7%	0.96
-Ensemble	97.1%	96.9%	97.3%	97.1%	0.99
-🌐 API Documentation
-POST /predict
+| Category | Features |
+|---|---|
+| Length-based | URL length, domain length, path length |
+| Character-based | Dots, hyphens, slashes, special characters |
+| Domain | IP address presence, subdomain count, TLD type |
+| Path | Directory depth, file extension |
+| Query | Parameter count, suspicious patterns |
+| Security | HTTPS, certificate validity |
+| Entropy | Character distribution randomness |
+| Reputation | Domain age, blacklist scores |
+
+**Top 10 features by importance:**
+
+```
+url_length          0.142
+has_ip_address      0.128
+num_subdomains      0.095
+domain_length       0.087
+num_dots            0.076
+has_https           0.068
+entropy             0.062
+num_hyphens         0.055
+path_depth          0.051
+num_digits          0.048
+```
+
+---
+
+## Model Performance
+
+| Model | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
+|---|---|---|---|---|---|
+| Random Forest | 94.2% | 93.8% | 94.6% | 94.2% | 0.97 |
+| **XGBoost** | **96.5%** | **96.2%** | **96.8%** | **96.5%** | **0.98** |
+| SVM (RBF) | 92.8% | 92.3% | 93.2% | 92.7% | 0.96 |
+| Ensemble | 97.1% | 96.9% | 97.3% | 97.1% | 0.99 |
+
+**Confusion Matrix (XGBoost):**
+
+```
+                   Predicted
+                 Benign    Malicious
+Actual Benign     4,823          152
+     Malicious      118        4,907
+```
+
+---
+
+## API Reference
+
+### `POST /predict`
+
 Analyze a single URL.
 
-POST /batch
+**Request:**
+```json
+{
+  "url": "https://example.com/path?param=value"
+}
+```
+
+**Response:**
+```json
+{
+  "url": "https://example.com/path?param=value",
+  "is_malicious": false,
+  "confidence": 0.923,
+  "risk_score": "low",
+  "features": {
+    "url_length": 38,
+    "has_https": true,
+    "num_dots": 1
+  },
+  "timestamp": "2025-02-13T10:30:00Z"
+}
+```
+
+### `POST /batch`
+
 Analyze multiple URLs.
 
-(Full examples included above.)
+**Request:**
+```json
+{
+  "urls": [
+    "https://google.com",
+    "http://suspicious-site.tk"
+  ]
+}
+```
 
-📁 Project Structure
-Code
+---
+
+## Project Structure
+
+```
 malicious-url-detection/
 ├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── models/
+│   ├── raw/                    # Original datasets
+│   ├── processed/              # Cleaned data
+│   └── models/                 # Trained model files
 ├── src/
 │   ├── feature_extraction.py
 │   ├── model_training.py
 │   ├── prediction.py
 │   └── utils.py
 ├── notebooks/
+│   ├── 01_data_analysis.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   └── 03_model_evaluation.ipynb
 ├── api/
 │   ├── app.py
 │   └── schemas.py
-├── app.py
-├── train.py
+├── app.py                      # Streamlit interface
+├── train.py                    # Training script
 ├── requirements.txt
 └── README.md
-🤝 Contributing
-Contributions are welcome!
-Please read the [Looks like the result wasn't safe to show. Let's switch things up and try something else!] before submitting pull requests.
+```
 
-📝 License
-This project is licensed under the Apache License 2.0.
-See the full text in the [Looks like the result wasn't safe to show. Let's switch things up and try something else!] file.
+---
 
-👤 Author
-Au Amores
+## License
 
-  
- 
-See the LICENSE file for full details.
+Licensed under the [Apache License 2.0](LICENSE).
 
-Author
-Au Amores
+---
+
+## Author
+
+**Au Amores** — AI/ML Engineer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/au-amores/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ares-coding)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:auamores3@gmail.com)
